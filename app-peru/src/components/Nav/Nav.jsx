@@ -2,8 +2,9 @@ import { useRef, useState } from 'react'
 import styled from 'styled-components'
 import { AiFillExperiment } from 'react-icons/ai'
 import { BiMenuAltLeft, BiSearchAlt2 } from 'react-icons/bi'
-import { FaUserAstronaut } from 'react-icons/fa'
+import { FaHome, FaUserAstronaut } from 'react-icons/fa'
 import { HiChatAlt } from 'react-icons/hi'
+import { Link } from 'react-router-dom'
 
 export const Nav = () => {
   const [show, setShow] = useState(false)
@@ -37,20 +38,26 @@ export const Nav = () => {
             <span class='tooltip'>Search</span>
           </li>
           <li>
-            <a href='#'>
+            <Link to='/perfil'>
               <FaUserAstronaut />
               <span class={`links_name ${show ? 'open' : ''}`}>Mi perfil</span>
-            </a>
-            <span class='tooltip'>Mi perfil</span>
+              <span class='tooltip'>Mi perfil</span>
+            </Link>
           </li>
           <li>
-            <a href='#'>
-              <HiChatAlt />
-              <span class={`links_name ${show ? 'open' : ''}`}>Messages</span>
-            </a>
-            <span class='tooltip'>Messages</span>
+            <Link to='/'>
+              <FaHome />
+              <span class={`links_name ${show ? 'open' : ''}`}>Home</span>
+              <span class='tooltip'>Home</span>
+            </Link>
           </li>
-
+          <li>
+            <a href='/chat'>
+              <HiChatAlt />
+              <span class={`links_name ${show ? 'open' : ''}`}>chat</span>
+            </a>
+            <span class='tooltip'>chat</span>
+          </li>
           <li class='profile'>
             <img
               src='https://png.pngtree.com/png-vector/20190704/ourlarge/pngtree-businessman-user-avatar-free-vector-png-image_1538405.jpg'
