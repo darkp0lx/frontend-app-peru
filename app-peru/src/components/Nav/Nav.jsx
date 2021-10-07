@@ -2,13 +2,22 @@ import { useRef, useState } from 'react'
 import styled from 'styled-components'
 import { AiFillExperiment } from 'react-icons/ai'
 import { BiMenuAltLeft, BiSearchAlt2 } from 'react-icons/bi'
-import { FaHome, FaUserAstronaut } from 'react-icons/fa'
+import { FaHome, FaUserAstronaut, FaArrowAltCircleLeft } from 'react-icons/fa'
 import { HiChatAlt } from 'react-icons/hi'
 import { Link } from 'react-router-dom'
+import { useStateValue } from '../../store/stateProvider'
+import { actionTypes } from '../../store/reducer'
 
 export const Nav = () => {
   const [show, setShow] = useState(false)
+  const [{ user }, dispatch] = useStateValue()
 
+  const getOutUser = () => {
+    dispatch({
+      type: actionTypes.CHANGE_USER,
+      user: null
+    })
+  }
   return (
     <Container>
       <div className={`sidebar ${show ? 'open' : ''}`}>
@@ -22,7 +31,7 @@ export const Nav = () => {
             }}
           />
         </div>
-        <ul class='nav-list'>
+        <ul className='nav-list'>
           <li>
             <BiSearchAlt2
               className='search'
@@ -35,41 +44,37 @@ export const Nav = () => {
               type='text'
               placeholder='Search...'
             />
-            <span class='tooltip'>Search</span>
+            <span className='tooltip'>Search</span>
           </li>
           <li>
             <Link to='/perfil'>
               <FaUserAstronaut />
-              <span class={`links_name ${show ? 'open' : ''}`}>Mi perfil</span>
-              <span class='tooltip'>Mi perfil</span>
+              <span className={`links_name ${show ? 'open' : ''}`}>
+                Mi perfil
+              </span>
+              <span className='tooltip'>Mi perfil</span>
             </Link>
           </li>
           <li>
             <Link to='/'>
               <FaHome />
-              <span class={`links_name ${show ? 'open' : ''}`}>Home</span>
-              <span class='tooltip'>Home</span>
+              <span className={`links_name ${show ? 'open' : ''}`}>Home</span>
+              <span className='tooltip'>Home</span>
             </Link>
           </li>
           <li>
-            <a href='/chat'>
+            <Link to='/chat'>
               <HiChatAlt />
-              <span class={`links_name ${show ? 'open' : ''}`}>chat</span>
-            </a>
-            <span class='tooltip'>chat</span>
+              <span className={`links_name ${show ? 'open' : ''}`}>chat</span>
+            </Link>
+            <span className='tooltip'>chat</span>
           </li>
-          <li class='profile'>
-            <img
-              src='https://png.pngtree.com/png-vector/20190704/ourlarge/pngtree-businessman-user-avatar-free-vector-png-image_1538405.jpg'
-              alt='profileImg'
-            />
-            <div class='profile-details'>
-              <div class='name_job'>
-                <div class='name'>Prem Shahi</div>
-                <div class='job'>Web designer</div>
-              </div>
-            </div>
-            <i class='bx bx-log-out' id='log_out'></i>
+          <li>
+            <Link to='' onClick={getOutUser}>
+              <FaArrowAltCircleLeft />
+              <span className={`links_name ${show ? 'open' : ''}`}>salir</span>
+              <span className='tooltip'>salir</span>
+            </Link>
           </li>
         </ul>
       </div>
@@ -104,11 +109,14 @@ const Container = styled.div`
     left: 0;
     top: 0;
     height: 100%;
-    width: 60px;
+    width: 20px;
     background: #11101d;
     padding: 6px 14px;
-    z-index: 99;
+    z-index: 0;
     transition: all 0.5s ease;
+    @media (min-width: 768px) {
+      width: 60px;
+    }
   }
   .sidebar.open {
     width: 250px;
@@ -205,7 +213,7 @@ const Container = styled.div`
     outline: none;
     height: 50px;
     width: 100%;
-    width: 50px;
+    width: 0;
     border: none;
     border-radius: 12px;
     transition: all 0.5s ease;
@@ -278,11 +286,14 @@ const Container = styled.div`
     height: 60px;
     width: 60px;
     left: 0;
-    bottom: 100px;
+    bottom: 20px;
     padding: 10px 14px;
     background: #1d1b31;
     transition: all 0.5s ease;
     overflow: hidden;
+    @media (min-width: 768px) {
+      width: 20px;
+    }
   }
   .sidebar.open li.profile {
     width: 250px;

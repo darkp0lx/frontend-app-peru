@@ -4,7 +4,7 @@ import styled from 'styled-components'
 export const Chat = () => {
   return (
     <Container>
-      <h2>Chat</h2>
+      <h2>chat en construcción</h2>
     </Container>
   )
 }
